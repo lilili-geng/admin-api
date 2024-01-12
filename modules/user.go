@@ -26,3 +26,5 @@ type UserModule struct {
 func (table *UserModule) TableName() string {
 	return "user"
 }
+
+
