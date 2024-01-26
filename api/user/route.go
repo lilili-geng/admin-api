@@ -18,5 +18,7 @@ type RouterUser struct {
 
 func (*RouterUser) Route(r *gin.Engine) {
 	h := &HandlerUser{}
-	r.POST("/login", h.getCaptcha)
+
+	// 登陆
+	r.POST("/login", h.login)
 }
