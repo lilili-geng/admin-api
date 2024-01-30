@@ -5,6 +5,8 @@ import (
 	"LiadminApi/service"
 	"LiadminApi/utils"
 	"fmt"
+	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,13 +17,15 @@ type HandlerUser struct {
 // 业务逻辑
 var Rsp = &utils.Result{}
 
-// @BasePath /login
-// @Summary 登陆
-// Login
+// login godoc
+// @Summary 用户登录
+// @Schemes
+// @Description 用户登录接口，验证用户名和密码，返回访问令牌和刷新令牌
 // @Tags user
-// @param name body modules.UserLoginRequest false "用户名"
-// @param passWord body modules.UserLoginRequest false "密码"
-// @Success 200 {string}  json{"code","data"}
+// @Accept json
+// @Produce json
+// @Param request body modules.LoginRequest true "登录请求"
+// @Success 200 {object} modules.LoginResponse
 // @Router /login [post]
 func (*HandlerUser) login(ctx *gin.Context) {
 
@@ -32,10 +36,25 @@ func (*HandlerUser) login(ctx *gin.Context) {
 		return
 	}
 
-	user, err := service.GetByUserNamePassword(loginRequest.UserName, loginRequest.PassWord)
+	fmt.Println(loginRequest)
+
+	user, err := service.GetByUserName(&modules.SysUserModule{UserName: loginRequest.UserName})
 
 	if err != nil {
 		ctx.JSON(200, Rsp.Fail(400, err.Error()))
+		return
+	}
+
+	if !utils.VerifyPassword(loginRequest.PassWord, user.Salt, user.PassWord) {
+		ctx.JSON(200, Rsp.Fail(400, "密码不正确请重新输入"))
+		return
+	}
+
+	now := time.Now()
+	user.LoginAt = &now
+	// 更新用户信息到数据库
+	if err := service.UpdateUser(user); err != nil {
+		ctx.JSON(200, Rsp.Fail(400, "更新用户信息失败"))
 		return
 	}
 
@@ -61,5 +80,65 @@ func (*HandlerUser) login(ctx *gin.Context) {
 	}))
 
 	fmt.Println(user)
+}
+
+// registerUser godoc
+// @Summary 注册
+// @Schemes
+// @Description 注册
+// @Tags user
+// @Accept json
+// @Produce json
+// @Param request body modules.LoginRequest true "登录请求"
+// @Success 200 string string 注册成功
+// @Router /registerUser [post]
+func (*HandlerUser) registerUser(ctx *gin.Context) {
+
+	registerRequest := &modules.SysUserModule{}
+
+	if err := ctx.ShouldBindJSON(registerRequest); err != nil {
+		ctx.JSON(200, Rsp.Fail(400, "注册信息不完整，请重新输入"))
+		return
+	}
+
+	// 调用注册逻辑
+	_, err := service.GetByUserName(&modules.SysUserModule{UserName: registerRequest.UserName})
+
+	if err != nil {
+
+		registerRequest.Salt = utils.GenerateSalt()
+		// 加密
+		registerRequest.PassWord = utils.HashPassword(registerRequest.PassWord, registerRequest.Salt)
+
+		createError := service.CreateUser(registerRequest)
+
+		if createError != nil {
+			ctx.JSON(200, Rsp.Fail(400, err.Error()))
+		} else {
+			ctx.JSON(200, Rsp.Success(nil))
+		}
+	} else {
+		ctx.JSON(200, Rsp.Fail(400, "用户名已存在"))
+	}
+}
+
+// getByUserList
+func (*HandlerUser) getByUserList(ctx *gin.Context) {
+	user := &modules.UserPagination{}
+	page, _ := strconv.Atoi(ctx.Query("page"))
+	pageSize, _ := strconv.Atoi(ctx.Query("pageSize"))
+	user.UserName = ctx.Query("userName")
+	user.Email = ctx.Query("email")
+	user.Page = page
+	user.PageSize = pageSize
+
+	result, err := service.GetUserList(user)
+
+	if err != nil {
+		ctx.JSON(200, Rsp.Fail(400, err.Error()))
+		return
+	}
+
+	ctx.JSON(200, Rsp.Success(result))
 
 }

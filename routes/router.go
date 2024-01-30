@@ -1,8 +1,11 @@
 package routes
 
 import (
+	"LiadminApi/docs"
 
 	"github.com/gin-gonic/gin"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 // Router接口
@@ -29,6 +32,10 @@ func InitRouter(r *gin.Engine) {
 	for _, ro := range routers {
 		ro.Route(r)
 	}
+
+	// swagger
+	docs.SwaggerInfo.BasePath=""
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 }
 
 func Register(ro ...Router) {

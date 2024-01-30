@@ -1,0 +1,63 @@
+definitions:
+  modules.LoginRequest:
+    properties:
+      passWord:
+        type: string
+      userName:
+        type: string
+    type: object
+  modules.LoginResponse:
+    properties:
+      refreshToken:
+        type: string
+      token:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: 用户登录接口，验证用户名和密码，返回访问令牌和刷新令牌
+      parameters:
+      - description: 登录请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/modules.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/modules.LoginResponse'
+      summary: 用户登录
+      tags:
+      - user
+  /registerUser:
+    post:
+      consumes:
+      - application/json
+      description: 注册
+      parameters:
+      - description: 登录请求
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/modules.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 注册
+      tags:
+      - user
+swagger: "2.0"
