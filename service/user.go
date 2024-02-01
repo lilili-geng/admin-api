@@ -32,28 +32,26 @@ func CreateUser(user *modules.SysUserModule) error {
 	return err
 }
 
-// getUserList
 func GetUserList(user *modules.UserPagination) (*modules.UserPaginationResponse, error) {
-
 	fmt.Println(user, "user11111")
 
 	var userList []modules.SysUserModule
-
 	var result *gorm.DB
+	var total int64
 
-	if user.Email != "" && user.UserName != "" {
-		result = db.DB.Where("username LIKE ? OR email LIKE ?", "%"+user.UserName+"%", "%"+user.Email+"%").Limit(user.PageSize).Offset((user.Page - 1) * user.PageSize).Find(&userList)
-	} else {
-		result = db.DB.Limit(user.PageSize).Offset((user.Page - 1) * user.PageSize).Find(&userList)
-	}
+	baseQuery := db.DB
 
 	if user.UserName != "" {
-		result = db.DB.Where("username LIKE ? ", "%"+user.UserName+"%").Limit(user.PageSize).Offset((user.Page - 1) * user.PageSize).Find(&userList)
+		baseQuery = baseQuery.Where("username LIKE ?", "%"+user.UserName+"%")
 	}
 
 	if user.Email != "" {
-		result = db.DB.Where("email LIKE ?", "%"+user.Email+"%").Limit(user.PageSize).Offset((user.Page - 1) * user.PageSize).Find(&userList)
+		baseQuery = baseQuery.Where("email LIKE ?", "%"+user.Email+"%")
 	}
+
+	result = baseQuery.Limit(user.PageSize).Offset((user.Page - 1) * user.PageSize).Find(&userList)
+
+	baseQuery.Model(&modules.SysUserModule{}).Count(&total)
 
 	if result == nil {
 		return nil, errors.New("result is nil")
@@ -62,7 +60,7 @@ func GetUserList(user *modules.UserPagination) (*modules.UserPaginationResponse,
 	pagination := &modules.UserPaginationResponse{
 		Page:     user.Page,
 		PageSize: user.PageSize,
-		Total:    len(userList),
+		Total:    int(total),
 		List:     userList,
 	}
 	return pagination, nil
@@ -78,8 +76,35 @@ func UpdateUser(user *modules.SysUserModule) error {
 		Email:      user.Email,
 		LoginAt:    user.LoginAt,
 		LoginOutAt: user.LoginOutAt,
-		IsLogOut:   user.IsLogOut, 
+		IsLogOut:   user.IsLogOut,
 	}).Error
 
 	return result
+}
+
+// DeleteUserById
+func DeleteUserById(userIds []int) error {
+	fmt.Println(userIds, "userIds")
+	for _, userID := range userIds {
+		if result := db.DB.Delete(&modules.SysUserModule{}, userID); result.Error != nil {
+			return result.Error
+		}
+	}
+	return nil
+}
+
+// GetByUserId
+func GetByUserId(userId int64) (*modules.SysUserModule, error) {
+	data := &modules.SysUserModule{}
+
+	err := db.DB.Where("id = ?", userId).First(data).Error
+
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, err
+		}
+		return nil, err
+	}
+
+	return data, nil
 }

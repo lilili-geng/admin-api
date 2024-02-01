@@ -20,7 +20,7 @@ type SysUserModule struct {
 	CreatedAt  time.Time      `json:"createdAt"`
 	UpdatedAt  time.Time      `json:"updatedAt"`
 	DeletedAt  gorm.DeletedAt `gorm:"index" json:"deletedAt,omitempty"`
-	IsLogOut   int           `gorm:"column:is_log_out;" json:"isLogOut"`
+	IsLogOut   int            `gorm:"column:is_log_out;" json:"isLogOut"`
 }
 
 // login request
@@ -47,6 +47,10 @@ type UserPaginationResponse struct {
 	PageSize int             `json:"pageSize"`
 	Total    int             `json:"total"`
 	List     []SysUserModule `json:"list"`
+}
+
+type UserIdsnResponse struct {
+	UserIds []int `json:"userIds"`
 }
 
 func (table *SysUserModule) TableName() string {
