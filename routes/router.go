@@ -29,6 +29,7 @@ func (*RouterRegister) Route(ro Router, r *gin.Engine) {
 var routers []Router
 
 func InitRouter(r *gin.Engine) {
+
 	for _, ro := range routers {
 		ro.Route(r)
 	}

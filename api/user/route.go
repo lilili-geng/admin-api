@@ -2,6 +2,7 @@ package user
 
 import (
 	"LiadminApi/routes"
+	"LiadminApi/utils"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -18,16 +19,17 @@ type RouterUser struct {
 
 func (*RouterUser) Route(r *gin.Engine) {
 	h := &HandlerUser{}
-	//注册
-	r.POST("/register", h.registerUser)
-	// 登陆
-	r.POST("/login", h.login)
+	authUserRouter := r.Group("/user")
+
+	authUserRouter.Use(utils.JwtToken())
+	
 	// 用户list
-	r.GET("/getByUserList", h.getByUserList)
+	authUserRouter.GET("/getByUserList", h.getByUserList)
 	// 删除user
-	r.DELETE("/deleteUserById", h.deleteUserById)
+	authUserRouter.DELETE("/deleteUserById", h.deleteUserById)
 	// 根据id查询用户
-	r.GET("/getByUserId", h.getByUserId)
+	authUserRouter.GET("/getByUserId", h.getByUserId)
 	// 修改
-	r.POST("/updateUser", h.updateUser)
+	authUserRouter.POST("/updateUser", h.updateUser)
+
 }
