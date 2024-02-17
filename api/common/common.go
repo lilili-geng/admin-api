@@ -10,10 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-
-
 type HandlerCommon struct {
-
 }
 
 // 业务逻辑
@@ -123,3 +120,6 @@ func (*HandlerCommon) registerUser(ctx *gin.Context) {
 		ctx.JSON(200, Rsp.Fail(400, "用户名已存在"))
 	}
 }
+
+
+

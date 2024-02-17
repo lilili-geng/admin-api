@@ -15,6 +15,7 @@ type SysUserModule struct {
 	Avatar     string         `gorm:"column:avatar;type:varchar(255);" json:"avatar"`
 	Email      string         `gorm:"column:email;type:varchar(30);" valid:"email" json:"email"`
 	Salt       string         `gorm:"column:salt;" json:"salt"`
+	Status     string         `gorm:"column:status;type:varchar(1);" json:"status"` // '角色状态（0正常 1停用）',
 	LoginAt    *time.Time     `gorm:"column:login_at;" json:"loginAt"`
 	LoginOutAt *time.Time     `gorm:"column:login_out_at;" json:"loginOutAt"`
 	CreatedAt  time.Time      `json:"createdAt"`

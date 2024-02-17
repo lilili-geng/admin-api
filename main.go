@@ -2,7 +2,6 @@ package main
 
 import (
 	"LiadminApi/middleware"
-	"LiadminApi/modules"
 	"LiadminApi/routes"
 	"LiadminApi/utils"
 	"LiadminApi/utils/db"
@@ -11,28 +10,21 @@ import (
 	_ "LiadminApi/api"
 
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 )
 
 func main() {
-	db.InitConfig()
-	db.InitDB()
+	db.Loginit()
 
-	// 建表
-	err := db.DB.AutoMigrate(&modules.SysUserModule{})
+	fmt.Println("Logger in main:", middleware.Logger) // Add this line
 
-	if err != nil {
-		fmt.Println(err)
-		panic(err)
-	}
+	middleware.Logger.Infof("------应用main函数开始")
 
-	fmt.Println("🚀 Connected Successfully to the table")
+	gin.SetMode(viper.GetString("Log.RunMode"))
 
 	r := gin.Default()
 
-	// 中间件
-	r.Use(middleware.Cors())
 
-	// 路由
 	routes.InitRouter(r)
 
 	utils.Init(r, "80", "adminAPI")

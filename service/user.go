@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 
-	"gorm.io/gorm"
+	"github.com/jinzhu/gorm"
 )
 
 // 查询用户名

@@ -1,5 +1,7 @@
 package utils
 
+import ()
+
 // 响应结构体
 type BusinessCode int
 
@@ -14,7 +16,7 @@ func (r *Result) Success(data interface{}) *Result {
 	r.Message = "Success ok 🚀"
 	r.Data = nil // 清空原先的数据
 	if data != nil {
-			r.Data = data
+		r.Data = data
 	}
 	return r
 }

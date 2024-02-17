@@ -1,0 +1,144 @@
+2024-02-17T14:50:04.796+0800	FATAL	db/init.go:77	db :: sql: unknown driver "mysql" (forgotten import?)
+2024-02-17T15:30:26.936+0800	ERROR	routes/router.go:59	handle not found: /admin/getByUserList
+2024-02-17T15:30:26.937+0800	ERROR	routes/router.go:60	stack: goroutine 38 [running]:
+runtime/debug.Stack()
+	/opt/homebrew/Cellar/go/1.21.1/libexec/src/runtime/debug/stack.go:24 +0x64
+LiadminApi/routes.HandleNotFound(0x1400014e100)
+	/Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/routes/router.go:60 +0x6c
+github.com/gin-gonic/gin.(*Context).Next(0x1400014e100)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174 +0x3c
+LiadminApi/routes.InitRouter.AccessLog.func3(0x1400014e100)
+	/Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/routes/accesslog.go:34 +0xd8
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+LiadminApi/routes.Recover(0x1400014e100)
+	/Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/routes/router.go:83 +0x6c
+github.com/gin-gonic/gin.(*Context).Next(0x1400014e100)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174 +0x3c
+LiadminApi/routes.InitRouter.Cors.func2(0x1400014e100)
+	/Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/middleware/cors.go:18 +0x150
+github.com/gin-gonic/gin.(*Context).Next(0x1400014e100)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174 +0x3c
+LiadminApi/routes.InitRouter.PermissionMiddleWare.func1(0x1400014e100)
+	/Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/routes/permission.go:36 +0x20c
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x1400014e100)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x1400014e100)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.serveError(0x1400014e100, 0x194, {0x102f22d00, 0x12, 0x12})
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:656 +0x54
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000582680, 0x1400014e100)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:649 +0x3c4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000582680, {0x102ac8f18?, 0x1400017ee00}, 0x1400014e400)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0
+net/http.serverHandler.ServeHTTP({0x102ac6f10?}, {0x102ac8f18?, 0x1400017ee00?}, 0x6?)
+	/opt/homebrew/Cellar/go/1.21.1/libexec/src/net/http/server.go:2938 +0xbc
+net/http.(*conn).serve(0x1400001c900, {0x102acad20, 0x1400052e7e0})
+	/opt/homebrew/Cellar/go/1.21.1/libexec/src/net/http/server.go:2009 +0x518
+created by net/http.(*Server).Serve in goroutine 50
+	/opt/homebrew/Cellar/go/1.21.1/libexec/src/net/http/server.go:3086 +0x4cc
+
+2024-02-17T15:39:35.671+0800	ERROR	routes/router.go:59	handle not found: /login
+2024-02-17T15:39:35.672+0800	ERROR	routes/router.go:60	stack: goroutine 8 [running]:
+runtime/debug.Stack()
+	/opt/homebrew/Cellar/go/1.21.1/libexec/src/runtime/debug/stack.go:24 +0x64
+LiadminApi/routes.HandleNotFound(0x14000346100)
+	/Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/routes/router.go:60 +0x6c
+github.com/gin-gonic/gin.(*Context).Next(0x14000346100)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174 +0x3c
+LiadminApi/routes.InitRouter.AccessLog.func3(0x14000346100)
+	/Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/routes/accesslog.go:34 +0xd8
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+LiadminApi/routes.Recover(0x14000346100)
+	/Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/routes/router.go:83 +0x6c
+github.com/gin-gonic/gin.(*Context).Next(0x14000346100)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174 +0x3c
+LiadminApi/routes.InitRouter.Cors.func2(0x14000346100)
+	/Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/middleware/cors.go:18 +0x150
+github.com/gin-gonic/gin.(*Context).Next(0x14000346100)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174 +0x3c
+LiadminApi/routes.InitRouter.PermissionMiddleWare.func1(0x14000346100)
+	/Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/routes/permission.go:40 +0x258
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x14000346100)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x14000346100)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.serveError(0x14000346100, 0x194, {0x102fa2d00, 0x12, 0x12})
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:656 +0x54
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x140005829c0, 0x14000346100)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:649 +0x3c4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x140005829c0, {0x102b492d8?, 0x1400017c1c0}, 0x14000346000)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0
+net/http.serverHandler.ServeHTTP({0x102b472d0?}, {0x102b492d8?, 0x1400017c1c0?}, 0x6?)
+	/opt/homebrew/Cellar/go/1.21.1/libexec/src/net/http/server.go:2938 +0xbc
+net/http.(*conn).serve(0x140000fa240, {0x102b4b0e0, 0x14000591590})
+	/opt/homebrew/Cellar/go/1.21.1/libexec/src/net/http/server.go:2009 +0x518
+created by net/http.(*Server).Serve in goroutine 39
+	/opt/homebrew/Cellar/go/1.21.1/libexec/src/net/http/server.go:3086 +0x4cc
+
+2024-02-17T16:05:51.106+0800	ERROR	routes/router.go:63	handle not found: /user/getByUserList
+2024-02-17T16:05:51.107+0800	ERROR	routes/router.go:64	stack: goroutine 12 [running]:
+runtime/debug.Stack()
+	/opt/homebrew/Cellar/go/1.21.1/libexec/src/runtime/debug/stack.go:24 +0x64
+LiadminApi/routes.HandleNotFound(0x140004dc600)
+	/Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/routes/router.go:64 +0x6c
+github.com/gin-gonic/gin.(*Context).Next(0x140004dc600)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174 +0x3c
+LiadminApi/routes.InitRouter.JwtToken.func4(0x140004dc600)
+	/Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/utils/jwt.go:111 +0x250
+github.com/gin-gonic/gin.(*Context).Next(0x140004dc600)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174 +0x3c
+LiadminApi/routes.InitRouter.JwtToken.func4(0x140004dc600)
+	/Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/utils/jwt.go:111 +0x250
+github.com/gin-gonic/gin.(*Context).Next(0x140004dc600)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174 +0x3c
+LiadminApi/routes.InitRouter.AccessLog.func3(0x140004dc600)
+	/Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/routes/accesslog.go:34 +0xd8
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+LiadminApi/routes.Recover(0x140004dc600)
+	/Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/routes/router.go:87 +0x6c
+github.com/gin-gonic/gin.(*Context).Next(0x140004dc600)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174 +0x3c
+LiadminApi/routes.InitRouter.Cors.func2(0x140004dc600)
+	/Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/middleware/cors.go:18 +0x150
+github.com/gin-gonic/gin.(*Context).Next(0x140004dc600)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174 +0x3c
+LiadminApi/routes.InitRouter.PermissionMiddleWare.func1(0x140004dc600)
+	/Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/routes/permission.go:40 +0x258
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1(0x140004dc600)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 +0x80
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.LoggerWithConfig.func1(0x140004dc600)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 +0xb0
+github.com/gin-gonic/gin.(*Context).Next(...)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174
+github.com/gin-gonic/gin.serveError(0x140004dc600, 0x194, {0x100deed00, 0x12, 0x12})
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:656 +0x54
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest(0x14000103040, 0x140004dc600)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:649 +0x3c4
+github.com/gin-gonic/gin.(*Engine).ServeHTTP(0x14000103040, {0x100995390?, 0x140004a8ee0}, 0x140004dc500)
+	/opt/homebrew/opt/go@1.21/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 +0x1a0
+net/http.serverHandler.ServeHTTP({0x100993310?}, {0x100995390?, 0x140004a8ee0?}, 0x6?)
+	/opt/homebrew/Cellar/go/1.21.1/libexec/src/net/http/server.go:2938 +0xbc
+net/http.(*conn).serve(0x140004fc6c0, {0x100997180, 0x14000274420})
+	/opt/homebrew/Cellar/go/1.21.1/libexec/src/net/http/server.go:2009 +0x518
+created by net/http.(*Server).Serve in goroutine 39
+	/opt/homebrew/Cellar/go/1.21.1/libexec/src/net/http/server.go:3086 +0x4cc
+

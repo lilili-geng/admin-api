@@ -1,3 +1,4 @@
+# mysql
 mysql:
   username: "root"
   password: "20010428"
@@ -15,3 +16,16 @@ redis:
   db: 0 # Redis 数据库编号（默认为 0）
   poolSize: 30
   minIdleConn: 30
+
+# Log
+Log:
+  LogFilePath: /Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/logs
+  LogInfoFileName: info
+  LogWarnFileName: warn
+  LogFileExt: log
+  RunMode: debug
+
+AccessLog:
+  LogFilePath: /Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/logs
+  LogFileName: router_info
+  LogFileExt: log
