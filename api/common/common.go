@@ -35,9 +35,13 @@ func (*HandlerCommon) login(ctx *gin.Context) {
 		return
 	}
 
-	fmt.Println(loginRequest)
-
 	user, err := service.GetByUserName(&modules.SysUserModule{UserName: loginRequest.UserName})
+
+
+	if user.Status == "1" {
+		ctx.JSON(200, Rsp.Fail(400, "该账户已被管理员注销"))
+		return
+	}
 
 	if err != nil {
 		ctx.JSON(200, Rsp.Fail(400, err.Error()))
@@ -94,7 +98,6 @@ func (*HandlerCommon) login(ctx *gin.Context) {
 func (*HandlerCommon) registerUser(ctx *gin.Context) {
 
 	registerRequest := &modules.CreateUserRoleRequest{}
-	
 
 	if err := ctx.ShouldBindJSON(registerRequest); err != nil {
 		ctx.JSON(200, Rsp.Fail(400, "注册信息不完整，请重新输入"))

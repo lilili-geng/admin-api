@@ -20,7 +20,7 @@ type GetUserInfoResponse struct {
 	RoleStatus string `json:"roleStatus"`
 	Remark     string `json:"remark"`
 }
-
+	
 type CreateUserRoleRequest struct {
 	SysUserModule
 	RoleID uint `gorm:"column:role_id;primaryKey" json:"roleID"`
