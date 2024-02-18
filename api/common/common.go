@@ -93,12 +93,15 @@ func (*HandlerCommon) login(ctx *gin.Context) {
 // @Router /registerUser [post]
 func (*HandlerCommon) registerUser(ctx *gin.Context) {
 
-	registerRequest := &modules.SysUserModule{}
+	registerRequest := &modules.CreateUserRoleRequest{}
+	
 
 	if err := ctx.ShouldBindJSON(registerRequest); err != nil {
 		ctx.JSON(200, Rsp.Fail(400, "注册信息不完整，请重新输入"))
 		return
 	}
+
+	fmt.Println(registerRequest.SysUserModule.Email, "registerRequest")
 
 	// 调用注册逻辑
 	_, err := service.GetByUserName(&modules.SysUserModule{UserName: registerRequest.UserName})
@@ -109,17 +112,15 @@ func (*HandlerCommon) registerUser(ctx *gin.Context) {
 		// 加密
 		registerRequest.PassWord = utils.HashPassword(registerRequest.PassWord, registerRequest.Salt)
 
-		createError := service.CreateUser(registerRequest)
+		createError := service.CreateUser(&registerRequest.SysUserModule)
 
 		if createError != nil {
 			ctx.JSON(200, Rsp.Fail(400, err.Error()))
 		} else {
+			service.CreateUserRole(int(registerRequest.ID), int(registerRequest.RoleID))
 			ctx.JSON(200, Rsp.Success(nil))
 		}
 	} else {
 		ctx.JSON(200, Rsp.Fail(400, "用户名已存在"))
 	}
 }
-
-
-

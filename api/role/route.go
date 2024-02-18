@@ -18,8 +18,17 @@ type RouterRole struct {
 
 func (*RouterRole) Route(r *gin.Engine) {
 	h := &HandlerRole{}
+
+	authUserRouter := r.Group("/admin")
+
 	// 角色list
-	r.GET("/getByUserList", h.getByUserList)
+	authUserRouter.GET("/getRoleList", h.getRoleList)
+
+	// 修改
+	authUserRouter.POST("/updateRole", h.updateRole)
+
+	// 新增
+	
 }
 
 // Module 方法返回用户模块标识

@@ -5,20 +5,21 @@ prod
 gin jwt viper swagger zap go-file-rotatelogs casbin
 
 ```
-jwt 身份认证中间件
-viper 读取配置文件
-swagger 接口文档
-go-file-rotatelogs 是一个用于在 Go 语言中实现日志文件切割和轮转的库 
-casbin 权限 目前权限是 三种 
-      /admin/* :只有role为 superAdmin时可访问  
-      /user/* : role为superAdmin/user时均可访问 
-      /* : login register 接口
+jwt                     身份认证中间件
+viper                   读取配置文件
+swagger                 接口文档
+zap                     日志
+go-file-rotatelogs      是一个用于在 Go 语言中实现日志文件切割和轮转的库 
+casbin                  权限 目前权限是 三种 
+                              /admin/* :只有role为 superAdmin时可访问  
+                              /user/* : role为superAdmin/user时均可访问 
+                              /* : login register 接口
 ```
 
 ## 启动
 go mod tidy
-go run main.go
 
+go run main.go
 
 ###  概述
 ```

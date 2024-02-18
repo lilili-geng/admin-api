@@ -5,6 +5,7 @@ import (
 	"LiadminApi/service"
 	"LiadminApi/utils"
 	"fmt"
+	"net/http"
 	"strconv"
 	"strings"
 
@@ -16,6 +17,36 @@ type HandlerUser struct {
 
 // 业务逻辑
 var Rsp = &utils.Result{}
+
+// getUserInfo
+func (*HandlerUser) getUserInfo(ctx *gin.Context) {
+
+	nameInterface, exists := ctx.Get("name")
+
+	if !exists {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "failed to get username from context"})
+		return
+	}
+
+	name, ok := nameInterface.(string)
+
+	if !ok {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "failed to convert username to string"})
+		return
+	}
+
+	user, err := service.GetUserInfo(name)
+
+	if err != nil {
+		ctx.JSON(400, Rsp.Fail(400, err.Error()))
+		return
+	}
+
+	ctx.JSON(200, Rsp.Success(user))
+
+	fmt.Println(user)
+
+}
 
 // getByUserList
 func (*HandlerUser) getByUserList(ctx *gin.Context) {
@@ -82,26 +113,47 @@ func (*HandlerUser) getByUserId(ctx *gin.Context) {
 	}
 
 	result, err := service.GetByUserId(int64(id))
+	if err != nil {
+		ctx.JSON(400, Rsp.Fail(400, err.Error()))
+		return
+	}
+	userInfo, err2 := service.GetByRoleUserId(int64(result.ID))
+	if err2 != nil {
+		ctx.JSON(400, Rsp.Fail(400, err.Error()))
+		return
+	}
+
+	user := &modules.CreateUserRoleRequest{}
+
+	user.SysUserModule = *result
+	user.RoleID = userInfo.RoleID
 
 	if err != nil {
 		ctx.JSON(400, Rsp.Fail(400, err.Error()))
 		return
 	}
 
-	ctx.JSON(200, Rsp.Success(result))
+	ctx.JSON(200, Rsp.Success(user))
 }
 
 // updateUser
 func (*HandlerUser) updateUser(ctx *gin.Context) {
 
-	user := &modules.SysUserModule{}
+	user := &modules.CreateUserRoleRequest{}
 
 	if err := ctx.ShouldBindJSON(user); err != nil {
 		ctx.JSON(200, Rsp.Fail(400, err.Error()))
 		return
 	}
 
-	err := service.UpdateUser(user)
+	if user.ID == 0 {
+		ctx.JSON(200, Rsp.Fail(401, "用户id不存在"))
+		return
+	}
+
+	err := service.UpdateUser(&user.SysUserModule)
+	service.UpdateUserRole(int64(user.ID), int64(user.RoleID))
+
 	if err != nil {
 		ctx.JSON(200, Rsp.Fail(400, err.Error()))
 		return

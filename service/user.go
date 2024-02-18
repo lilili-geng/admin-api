@@ -33,8 +33,6 @@ func CreateUser(user *modules.SysUserModule) error {
 }
 
 func GetUserList(user *modules.UserPagination) (*modules.UserPaginationResponse, error) {
-	fmt.Println(user, "user11111")
-
 	var userList []modules.SysUserModule
 	var result *gorm.DB
 	var total int64
@@ -57,13 +55,13 @@ func GetUserList(user *modules.UserPagination) (*modules.UserPaginationResponse,
 		return nil, errors.New("result is nil")
 	}
 
-	pagination := &modules.UserPaginationResponse{
+	list := &modules.UserPaginationResponse{
 		Page:     user.Page,
 		PageSize: user.PageSize,
 		Total:    int(total),
 		List:     userList,
 	}
-	return pagination, nil
+	return list, nil
 }
 
 // UpdateUser
@@ -107,4 +105,34 @@ func GetByUserId(userId int64) (*modules.SysUserModule, error) {
 	}
 
 	return data, nil
+}
+
+// 查询用户个人信息
+// getUserInfo
+func GetUserInfo(name string) (*modules.GetUserInfoResponse, error) {
+	userRole := &modules.SysUserRole{}
+	userInfo := &modules.GetUserInfoResponse{}
+
+	user, err := GetByUserName(&modules.SysUserModule{UserName: name})
+
+	if err != nil {
+		return nil, err
+	}
+
+	// 查询用户角色关联表
+	if err := db.DB.Preload("User").Preload("Role").Where("user_id = ?", user.ID).First(&userRole).Error; err != nil {
+		// 处理查询错误
+		return nil, err
+	}
+
+	userInfo.SysUserModule = userRole.User
+
+	userInfo.RoleName = userRole.Role.RoleName
+	userInfo.Remark = userRole.Role.Remark
+	userInfo.Sort = userRole.Role.Sort
+	userInfo.RoleStatus = userRole.Role.Status
+
+	fmt.Println("GetUserInfo", userInfo)
+
+	return userInfo, nil
 }
