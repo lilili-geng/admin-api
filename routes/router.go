@@ -40,7 +40,8 @@ func InitRouter(r *gin.Engine) {
 	for _, ro := range routers {
 		fmt.Println("routersrouters", ro.Module())
 		if ro.Module() != "common" {
-			r.Use(utils.JwtToken()).Use(PermissionMiddleWare())
+			apiGroup := r.Group("/api")
+			apiGroup.Use(utils.JwtToken()).Use(PermissionMiddleWare())
 		}
 		ro.Route(r)
 	}

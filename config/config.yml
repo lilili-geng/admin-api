@@ -19,13 +19,13 @@ redis:
 
 # Log
 Log:
-  LogFilePath: /Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/logs
+  LogFilePath: /usr/share/nginx/html/config/logs
   LogInfoFileName: info
   LogWarnFileName: warn
   LogFileExt: log
   RunMode: debug
 
 AccessLog:
-  LogFilePath: /Users/hongge/Desktop/li/wuyoulian/admin/adminAPI/logs
+  LogFilePath: /usr/share/nginx/html/config/logs
   LogFileName: router_info
   LogFileExt: log

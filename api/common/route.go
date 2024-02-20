@@ -14,17 +14,16 @@ func init() {
 	routes.Register(&RouterCommon{})
 }
 
-
-
 type RouterCommon struct {
 }
 
 func (*RouterCommon) Route(r *gin.Engine) {
 	h := &HandlerCommon{}
+	authCommon := r.Group("/api")
 	//注册
-	r.POST("/register", h.registerUser)
+	authCommon.POST("/register", h.registerUser)
 	// 登陆
-	r.POST("/login", h.login)
+	authCommon.POST("/login", h.login)
 }
 
 func (*RouterCommon) Module() string {

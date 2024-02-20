@@ -18,7 +18,7 @@ type RouterUser struct {
 
 func (*RouterUser) Route(r *gin.Engine) {
 	h := &HandlerUser{}
-	authUserRouter := r.Group("/user")
+	authUserRouter := r.Group("/api/user")
 
 	// 查询用户个人信息
 	authUserRouter.GET("/getUserInfo", h.getUserInfo)
