@@ -45,8 +45,12 @@ func PermissionMiddleWare() gin.HandlerFunc {
 			return
 		}
 
+		if user.RoleStatus == "1" {
+			c.JSON(401, rsp.Fail(401, "该账户权限已被停用"))
+			c.Abort() // 中止请求链
+		}
 
-		fmt.Println("role user.RoleName :",user.RoleName)
+		fmt.Println("role user.RoleName :", user.RoleName)
 		fmt.Println(user)
 
 		// 检查用户权限
